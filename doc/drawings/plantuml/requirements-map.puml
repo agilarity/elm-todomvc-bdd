@@ -1,0 +1,62 @@
+@startmindmap
+
+scale 1000 width
+
+skinparam Shadowing false
+
+<style>
+node {
+    LineColor black
+    ArrowLineColor black
+    BackgroundColor white
+    FontSize 14
+    Padding 15
+}
+
+arrow {
+    LineColor black
+}
+
+.rule {
+    FontStyle bold
+}
+
+</style>
+
+Title Requirements Map
+
+* 1. View Home Page <<rule>>
+** 2. View Info Footer <<rule>>
+** Add Todo
+*** 3. Add Todo (on blur) <<rule>>
+*** 4. Add Todo (on enter) <<rule>>
+
+** View Todo List
+
+*** Manage One Todo
+****  5. Toggle Todo Complete <<rule>>
+**** 6. Delete Todo (from list) <<rule>>
+**** 7. Enable Todo Editing <<rule>>
+***** Change Title
+******  8. Change Title (on blur) <<rule>>
+******  9. Change Title (on enter) <<rule>>
+***** 10. Cancel Todo Change <<rule>>
+***** Delete Todo (from edit)
+******  11. Delete Todo (on blur) <<rule>>
+******  12. Delete Todo (on enter) <<rule>>
+
+*** Manage Several Todos
+**** 13. Toggle All Todos Complete <<rule>>
+**** 14. Clear Completed Todos <<rule>>
+
+*** 15. View Items Left <<rule>>
+
+*** Filter Todos
+**** 16. Show All Todos <<rule>>
+**** 17. Show Active Todos <<rule>>
+**** 18. Show Completed Todos <<rule>>
+**** 19. Change Browser URL <<rule>>
+
+**  20. Persist Todo <<rule>>
+
+@endmindmap

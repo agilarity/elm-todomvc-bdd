@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="275px" preserveAspectRatio="none" style="width:611px;height:275px;background:#FFFFFF;" version="1.1" viewBox="0 0 611 275" width="611px" zoomAndPan="magnify"><defs/><g><!--MD5=[d5ac3844f66b12d9e08170e47495e096]
+cluster app--><rect fill="#FFFFFF" height="262" style="stroke:#000000;stroke-width:1.5;" width="174" x="218" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="45" x="282.5" y="21.9951">«SPA»</text><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="112" x="249" y="38.292">Elm Todo MVC</text><!--MD5=[8699c0c8e953ee53654a072cc875bfb4]
+cluster Browser--><rect fill="#FFFFFF" height="97" style="stroke:#000000;stroke-width:1.5;" width="145" x="460" y="99"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="67" x="499" y="113.9951">Browser</text><ellipse cx="305.0664" cy="237.7722" fill="#F8F8F8" rx="60.0664" ry="14.7722" style="stroke:#383838;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67" x="268.5664" y="241.5198">Add Todo</text><ellipse cx="305.113" cy="157.1226" fill="#F8F8F8" rx="66.113" ry="15.6226" style="stroke:#383838;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="82" x="261.113" y="160.8702">Manage List</text><ellipse cx="304.8049" cy="75.061" fill="#F8F8F8" rx="70.8049" ry="16.561" style="stroke:#383838;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="95" x="254.3049" y="78.8085">Manage Todo</text><!--MD5=[7468467f3b6b392f1d176d828c753b77]
+entity db--><path d="M476,144.5 C476,134.5 532.5,134.5 532.5,134.5 C532.5,134.5 589,134.5 589,144.5 L589,169.7969 C589,179.7969 532.5,179.7969 532.5,179.7969 C532.5,179.7969 476,179.7969 476,169.7969 L476,144.5 " fill="#F8F8F8" style="stroke:#000000;stroke-width:1.5;"/><path d="M476,144.5 C476,154.5 532.5,154.5 532.5,154.5 C532.5,154.5 589,154.5 589,144.5 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="93" x="486" y="171.4951">Local Storage</text><!--MD5=[026b3f9ae447cd6258ef99d33f5de6cf]
+entity editor--><ellipse cx="70" cy="135.2969" fill="#F8F8F8" rx="8" ry="8" style="stroke:#383838;stroke-width:1.5;"/><path d="M70,143.2969 L70,170.2969 M57,151.2969 L83,151.2969 M70,170.2969 L57,185.2969 M70,170.2969 L83,185.2969 " fill="none" style="stroke:#383838;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="40" x="50" y="200.792">Editor</text><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="128" x="6" y="122.4951">«Unauthenciated»</text><!--MD5=[7a47fc5749ab2d796cef5f5af2f8fc24]
+link editor to add_todo--><path d="M134.05,178.92 C177.45,194.01 233.48,213.48 269.09,225.86 " fill="none" id="editor-add_todo" style="stroke:#383838;stroke-width:1.0;"/><!--MD5=[45dc8b0286bcb7e1a71262a9791c5b7f]
+link editor to manage_list--><path d="M134.05,157 C166.53,157 206.09,157 238.87,157 " fill="none" id="editor-manage_list" style="stroke:#383838;stroke-width:1.0;"/><!--MD5=[27fd8bda5fd0c78522b2a3c55985b806]
+link editor to manage_todo--><path d="M134.05,134.81 C175.83,120.11 229.32,101.28 265.02,88.72 " fill="none" id="editor-manage_todo" style="stroke:#383838;stroke-width:1.0;"/><!--MD5=[77063f6350ef2a9af33897c03df1fc00]
+link add_todo to manage_list--><path d="M305,222.81 C305,207.8 305,192.79 305,177.77 " fill="none" id="add_todo-to-manage_list" style="stroke:#383838;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#383838" points="305,172.68,301,181.68,305,177.68,309,181.68,305,172.68" style="stroke:#383838;stroke-width:1.0;"/><!--MD5=[847587e10a0a2857ca24655b0c88178e]
+link manage_list to manage_todo--><path d="M305,141.3 C305,126.41 305,111.52 305,96.63 " fill="none" id="manage_list-to-manage_todo" style="stroke:#383838;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#383838" points="305,91.58,301,100.58,305,96.58,309,100.58,305,91.58" style="stroke:#383838;stroke-width:1.0;"/><!--MD5=[dc1a32b9f9730f91539d9d91016843f8]
+link add_todo to db--><path d="M340.25,225.7 C374.89,213.25 429.16,193.76 471.05,178.71 " fill="none" id="add_todo-to-db" style="stroke:#383838;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#383838" points="475.84,176.99,466.0161,176.2897,471.1381,178.6907,468.7372,183.8127,475.84,176.99" style="stroke:#383838;stroke-width:1.0;"/><!--MD5=[b5a66e6d998ec29687dbcc09b3c6441e]
+link manage_list to db--><path d="M376.33,157 C406.54,157 441.52,157 470.6,157 " fill="none" id="manage_list-db" style="stroke:#383838;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#383838" points="475.96,157,466.96,153,470.96,157,466.96,161,475.96,157" style="stroke:#383838;stroke-width:1.0;"/><polygon fill="#383838" points="371.22,157,380.22,161,376.22,157,380.22,153,371.22,157" style="stroke:#383838;stroke-width:1.0;"/><!--MD5=[c67084c1fe2a39f16d5ae0790bfa915f]
+link manage_todo to db--><path d="M344,88.82 C378.74,101.45 430.7,120.35 471.12,135.04 " fill="none" id="manage_todo-to-db" style="stroke:#383838;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#383838" points="475.99,136.82,468.8872,129.9973,471.2881,135.1193,466.1661,137.5203,475.99,136.82" style="stroke:#383838;stroke-width:1.0;"/><!--MD5=[e106a0678c4e01c365e79d5aefead90c]
+@startuml
+
+left to right direction
+
+skinparam shadowing false
+skinparam monochrome true
+skinparam Ranksep 100
+skinparam Nodesep 50
+
+actor "Editor" as editor <<Unauthenciated>>
+
+rectangle "Elm Todo MVC" as app <<SPA>> {
+  usecase "Add Todo" as add_todo
+  usecase "Manage List" as manage_list
+  usecase "Manage Todo" as manage_todo
+}
+
+rectangle "Browser" {
+  database "Local Storage" as db
+}
+
+editor - - add_todo
+editor - - manage_list
+editor - - manage_todo
+
+add_todo .> manage_list
+manage_list .> manage_todo
+
+add_todo ..> db
+manage_list <..> db
+manage_todo ..> db
+
+@enduml
+
+PlantUML version 1.2021.7(Sun May 23 08:40:07 EDT 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
