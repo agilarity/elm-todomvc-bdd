@@ -9,10 +9,14 @@ KNOWN_NOT_COVERED_FILE=doc/requirements/not-covered.txt
 
 # Ansi color code variables
 RED="\e[0;31m"
-BLUE="\e[0;34m"
 GREEN="\e[0;32m"
+YELLOW="\e[0;33m"
+BLUE="\e[0;34m"
 PURPLE="\e[0;35m"
+CYAN="\e[0;36m"
+
 BOLD="\e[1m"
+UNDERLINE="\e[4m"
 RESET="\e[0m"
 
 function coverage {
@@ -54,7 +58,7 @@ function create-reqs-data {
 }
 
 function list-reqs {
-    grep --no-filename --extended-regexp --exclude=\overview.md "GOAL|RULE" doc/requirements/details/*.md | sed 's/#//' | sed 's/#//'
+    grep --no-filename --extended-regexp --exclude=\overview.md "GOAL|RULE" doc/requirements/details/*.md | sed 's/[#]*//'
 }
 
 function list-tested-reqs {
@@ -73,13 +77,17 @@ function list-not-covered {
 }
 
 function list-colorized-not-covered {
-    while read requirement; do
-        known=$(grep --no-filename --only-matching "$requirement" $KNOWN_NOT_COVERED_FILE)
+    while read notCoveredReq; do
+        known=$(grep --no-filename --only-matching "$notCoveredReq" $KNOWN_NOT_COVERED_FILE)
+        knownLine=$(grep --no-filename "$notCoveredReq" $KNOWN_NOT_COVERED_FILE)
 
-        if [ "$requirement" == "$known" ]; then
-            echo -e "${PURPLE}$requirement${RESET} (${GREEN}${BOLD}OK${RESET}, Test Manually)"
+        notCoveredReqLength=${#notCoveredReq}
+        knownLineLength=${#knownLine}
+
+        if [[ $knownLine == $notCoveredReq* ]]; then
+            echo -e "${YELLOW}$notCoveredReq${RESET} ${UNDERLINE}${knownLine:notCoveredReqLength+1}${RESET}"
         else
-            echo -e "${RED}$requirement${RESET}"
+            echo -e "${RED}$notCoveredReq${RESET}"
         fi
 
     done <$NOT_COVERED_REQS_FILE
