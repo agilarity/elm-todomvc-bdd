@@ -6,12 +6,22 @@
 # Run your tasks like: run <task>
 # alias run=./Taskfile
 
+function tools {
+
+    if ! command -v npm &>/dev/null; then
+        echo "npm could not be found"
+        exit
+    else
+        npm install
+    fi
+}
+
 function clean {
     rm -rf elm-stuff out build tmp site/dist
 }
 
 function install {
-    elm install "$@"
+    npx elm install "$@"
 }
 
 function test {
@@ -19,7 +29,7 @@ function test {
 }
 
 function format {
-    elm-format "$@"
+    npx elm-format "$@"
 }
 
 function coverage {
@@ -62,6 +72,7 @@ function help {
     echo "     prod      Build and copy minimized app to dist directory"
     echo "     reqs      List requirements"
     echo "     test      Alias for elm-test --watch"
+    echo "     tools     Install Elm tools via npm"
 }
 
 TIMEFORMAT="Task completed in %3lR"

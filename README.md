@@ -23,10 +23,19 @@ This project demonstrates a behavior driven implementation of the [TodoMVC](http
 
 ## Build Instructions
 
-The project includes a run script. `./run.sh help` will show the available commands.
+To install Elm tools:
 
-1. Execute  `./run prod` to build the production version.
-2. Open the `site/index.html` in your Browser.
+* Execute `./run tools`
+
+To see production ver to start a development version in the Browser.sion in the Browser:
+
+* Execute  `./run prod`
+* Open the `site/index.html`
+
+To start a live development server.
+
+* Execute `./run live`
+
 
 ## Credits
 
