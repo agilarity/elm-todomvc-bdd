@@ -2,7 +2,7 @@
 
 [Elm](https://elm-lang.org/) - *"A delightful language for reliable web applications."*
 
-This project demonstrates a behavior driven implementation of the [TodoMVC](http://todomvc.com/) with the Elm language.
+This project demonstrates a behavior driven implementation of the [TodoMVC](http://todomvc.com/) specification using the Elm language.
 
 ## Elm Resources
 
