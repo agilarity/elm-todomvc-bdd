@@ -16,7 +16,7 @@ This project demonstrates a behavior driven implementation of the [TodoMVC](http
 * [Behavioral requirements](doc/requirements/solution-overview.md) were written to define a functional finish line.
 * All requirements were implemented in a [test driven](https://en.wikipedia.org/wiki/Test-driven_development) manner.
 * The Requirements Coverage Report provides an objective assessment of progress. Execute `./run.sh coverage` to see the report.
-* Project decisions are documented in `doc/decisions`.
+* Project decisions are documented in [doc/decisions](doc/decisions).
 
 ### Deviation from TodoMVC
 * The TodoMVC style was modified to make the `strong` element more visible.
