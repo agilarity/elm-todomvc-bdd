@@ -1,4 +1,4 @@
-name: Elm via Node.js CI
+name: Build
 
 on:
   push:

@@ -1,5 +1,7 @@
 # Elm • TodoMVC ~ BDD
 
+![example workflow](https://github.com/agilarity/elm-todomvc-bdd/actions/workflows/ci.yml/badge.svg)
+
 [Elm](https://elm-lang.org/) - *"A delightful language for reliable web applications."*
 
 This project demonstrates a behavior driven implementation of the [TodoMVC](http://todomvc.com/) specification using the Elm language.
