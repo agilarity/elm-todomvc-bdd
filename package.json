@@ -2,11 +2,12 @@
   "private": true,
   "name": "elm-todomvc-bdd",
   "scripts": {
-    "prepare": "elm-tooling install"
+    "postinstall": "elm-tooling install"
   },
   "devDependencies": {
     "elm-live": "^4.0.2",
     "elm-review": "^2.5.3",
+    "elm-test": "^0.19.1-revision7",
     "elm-tooling": "^1.3.0"
   }
 }
