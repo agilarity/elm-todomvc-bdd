@@ -25,7 +25,7 @@ function install {
 }
 
 function test {
-    elm-test --watch "$@"
+    npx elm-test --watch "$@"
 }
 
 function format {
