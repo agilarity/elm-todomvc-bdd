@@ -1,3 +1,3 @@
 Add requirements to this flat file to signal that an automated test is not expected. Provide a comment on the same line to explain the coverage exception.
 
-RULE-6.3: Should see the delete todo action on hover (OK, Verified Manually, Could not simulate hover)
+RULE-6.3: Should see the delete todo action on hover (OK, Verified Manually)

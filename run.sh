@@ -1,10 +1,16 @@
 #!/bin/bash
 
+set -u
+
 # See: https://github.com/adriancooney/Taskfile
 # Add the following alias to your shell
 
 # Run your tasks like: run <task>
 # alias run=./Taskfile
+
+BOLD="\e[1m"
+UNDERLINE="\e[4m"
+RESET="\e[0m"
 
 function tools {
 
@@ -33,7 +39,7 @@ function format {
 }
 
 function coverage {
-    ./scripts/report.sh coverage
+    ./scripts/reqs.sh coverage
 }
 
 function review {
@@ -57,22 +63,41 @@ function prod {
 }
 
 function reqs {
-    ./scripts/report.sh list-reqs
+    ./scripts/reqs.sh all
+}
+
+function waved {
+    ./scripts/reqs.sh waved
+}
+
+function pending {
+    ./scripts/reqs.sh pending
 }
 
 function help {
     echo "Usage: $0 <task> <args>"
     echo "Tasks:"
-    echo "     clean     Remove generated files"
-    echo "     coverage  Report requirements coverage"
-    echo "     format    Alias for elm-format"
-    echo "     help      Show this list"
-    echo "     install   Alias for elm install"
-    echo "     live      Start elm-live server"
-    echo "     prod      Build and copy minimized app to dist directory"
-    echo "     reqs      List requirements"
-    echo "     test      Alias for elm-test --watch"
-    echo "     tools     Install Elm tools via npm"
+    echo ""
+    echo -e "${BOLD}${UNDERLINE}Development:${RESET}"
+    echo "  tools     Install Elm tools"
+    echo "  clean     Remove generated files"
+    echo "  format    Alias for elm-format"
+    echo "  install   Alias for elm install"
+    echo "  live      Start elm-live server"
+    echo "  reivew    Alias for elm-review"
+    echo "  fix   Alias for elm-review --fix"
+    echo "  fix-all   Alias for elm-review --fix-all"
+    echo "  test      Alias for elm-test --watch"
+    echo ""
+    echo -e "${BOLD}${UNDERLINE}Production:${RESET}"
+    echo "  prod      Build and copy minimized app to dist directory"
+    echo ""
+    echo -e "${BOLD}${UNDERLINE}Requirements:${RESET}"
+    echo "  coverage  Report requirements coverage"
+    echo "  pending   List pending requirements"
+    echo "  reqs      List requirements"
+    echo "  waved     List requirements that will not be covered by Elm Program Tests"
+    echo "  help      Show this list"
 }
 
 TIMEFORMAT="Task completed in %3lR"
