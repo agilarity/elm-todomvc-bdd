@@ -2,13 +2,12 @@ name: Build
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -17,22 +16,36 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm ci
 
-    - name: elm make
-      run: npx --no-install elm make src/Main.elm --output=site/dist/elm.js
+      - name: elm make
+        run: npx --no-install elm make src/Main.elm --output=site/dist/elm.js
 
-    - name: elm-format
-      run: npx --no-install elm-format --validate src tests
+      - name: elm-format
+        run: npx --no-install elm-format --validate src tests
 
-    - name: elm-review
-      run: npx --no-install elm-review
+      - name: elm-review
+        run: npx --no-install elm-review
 
-    - name: elm-test
-      run: npx --no-install elm-test
+      - name: elm-test
+        run: npx --no-install elm-test
+
+      # Scenario Coverage Badge
+      - name: Get scenario coverage
+        run: echo "SCENARIO_COVERAGE=$(./scripts/reqs.sh coverage_message)" >> $GITHUB_ENV
+
+      - name: Create the scenario coverage badge
+        uses: schneegans/dynamic-badges-action@v1.1.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: ae5110630f7d23adb1a0d2cfce564275
+          filename: scenario-coverage.json
+          label: scenario coverage
+          message: ${{ env.SCENARIO_COVERAGE }}
+          color: blue
