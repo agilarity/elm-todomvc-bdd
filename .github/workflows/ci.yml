@@ -40,12 +40,12 @@ jobs:
       - name: Get scenario coverage
         run: echo "SCENARIO_COVERAGE=$(./scripts/reqs.sh coverage_message)" >> $GITHUB_ENV
 
-      - name: Create the scenario coverage badge
-        uses: schneegans/dynamic-badges-action@v1.1.0
-        with:
-          super_secret: ${{ secrets.GIST_SECRET }}
-          gistID: ae5110630f7d23adb1a0d2cfce564275
-          filename: scenario-coverage.json
-          label: scenario coverage
-          message: ${{ env.SCENARIO_COVERAGE }}
-          color: blue
+      # - name: Create the scenario coverage badge
+      #   uses: schneegans/dynamic-badges-action@v1.1.0
+      #   with:
+      #     auth: ${{ secrets.GIST_SECRET }}
+      #     gistID: ae5110630f7d23adb1a0d2cfce564275
+      #     filename: scenario-coverage.json
+      #     label: scenario coverage
+      #     message: ${{ env.SCENARIO_COVERAGE }}
+      #     color: blue
