@@ -123,7 +123,7 @@ function coverage_message {
         local rule_coverage=0
     fi
 
-    echo "$rule_coverage% ➺ $tested_rules_count tested, $waved_rules_count waved, $pending_rules_count pending"
+    echo "$rule_coverage% - $tested_rules_count tested, $waved_rules_count waved, $pending_rules_count pending"
 }
 
 function progress_message {
@@ -141,7 +141,7 @@ function progress_message {
         local percent=$(awk -v a=$completed_count -v b=$all_rules_count 'BEGIN{printf "%.0f",(a/b)*100}')
         local progress="$percent% ($completed_count/$all_rules_count) ➺ $rules_left scenarios left"
     else
-        local progress="100% ➺ $all_rules_count scenarios completed"
+        local progress="100% - $all_rules_count scenarios completed"
     fi
 
     echo $progress
