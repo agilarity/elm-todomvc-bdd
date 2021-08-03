@@ -163,7 +163,7 @@ function progress_color {
         if [ $pending_rules_count -gt 0 ]; then
             local progress="yellow"
         else
-            local progress="green"
+            local progress="brightgreen"
         fi
     fi
 
