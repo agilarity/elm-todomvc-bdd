@@ -160,7 +160,6 @@ function progress_color {
     local completed_count=$((tested_rules_count + waved_rules_count))
     local rules_left=$((all_rules_count - completed_count))
 
-    rules_left=1
     if [ $all_rules_count -eq 0 ]; then
         local progress="blue"
     else
