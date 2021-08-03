@@ -1,6 +1,6 @@
 # Elm • TodoMVC ~ BDD
 
-![ci](https://github.com/agilarity/elm-todomvc-bdd/actions/workflows/ci.yml/badge.svg) ![scenario-coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/agilarity//ae5110630f7d23adb1a0d2cfce564275/raw/scenario-coverage.json)
+![ci](https://github.com/agilarity/elm-todomvc-bdd/actions/workflows/ci.yml/badge.svg) ![scenario-coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/agilarity//ae5110630f7d23adb1a0d2cfce564275/raw/scenario-coverage.json) ![progress](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/agilarity//ae5110630f7d23adb1a0d2cfce564275/raw/progress.json)
 
 [Elm](https://elm-lang.org/) - _"A delightful language for reliable web applications."_
 
