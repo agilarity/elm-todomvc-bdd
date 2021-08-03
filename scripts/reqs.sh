@@ -155,15 +155,12 @@ function progress_color {
     _load_rule_data
 
     local all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
-    local tested_rules_count=$(wc -l $RULE_TESTED | tr -dc '0-9')
-    local waved_rules_count=$(wc -l $RULE_WAVED | tr -dc '0-9')
-    local completed_count=$((tested_rules_count + waved_rules_count))
-    local rules_left=$((all_rules_count - completed_count))
+    local pending_rules_count=$(wc -l $RULE_PENDING | tr -dc '0-9')
 
     if [ $all_rules_count -eq 0 ]; then
         local progress="blue"
     else
-        if [ $rules_left -gt 0 ]; then
+        if [ $pending_rules_count -gt 0 ]; then
             local progress="yellow"
         else
             local progress="green"
