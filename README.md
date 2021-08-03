@@ -30,7 +30,7 @@ To install Elm tools:
 
 - Execute `./run tools`
 
-To see production ver to start a development version in the Browser.sion in the Browser:
+To see production version:
 
 - Execute `./run prod`
 - Open the `site/index.html`
