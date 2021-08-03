@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x]
+        node-version: [14.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -46,6 +46,6 @@ jobs:
           auth: ${{ secrets.GIST_SECRET }}
           gistID: ae5110630f7d23adb1a0d2cfce564275
           filename: scenario-coverage.json
-          label: scenario coverage
+          label: Scenario Coverage
           message: ${{ env.SCENARIO_COVERAGE }}
           color: blue
