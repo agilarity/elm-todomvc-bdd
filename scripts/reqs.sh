@@ -84,6 +84,38 @@ function coverage {
     fi
 }
 
+function coverage_percent {
+    _create_data_dir
+    _list_reqs $RULE >$RULE_REQS
+    _list_tested $RULE_REQS >$RULE_TESTED
+
+    all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
+    tested_rules_count=$(wc -l $RULE_TESTED | tr -dc '0-9')
+
+    if [[ $tested_rules_count -gt 0 && $all_rules_count -gt 0 ]]; then
+        local rule_coverage=$(awk -v a=$tested_rules_count -v b=$all_rules_count 'BEGIN{printf "%.0f",(a/b)*100}')
+    else
+        local rule_coverage=0
+    fi
+
+    echo $rule_coverage%
+}
+
+function status {
+    _create_data_dir
+    _create_all_data
+    _create_rule_data
+
+    pending_rules_count=$(wc -l $RULE_PENDING | tr -dc '0-9')
+    if [ $pending_rules_count -gt 0 ]; then
+        local status="PENDING: $pending_rules_count"
+    else
+        local status="DONE"
+    fi
+
+    echo $status
+}
+
 function all {
     _create_data_dir
     _list_reqs $ALL >$ALL_REQS
@@ -174,10 +206,11 @@ function _list_pending {
 function help {
     echo "Usage: $0 <task> <args>"
     echo "Tasks:"
-    echo "  coverage   Report requirements coverage"
-    echo "  all        List all requirements"
-    echo "  pending    List pending requirements"
-    echo "  waved      List waved requirements with comments"
+    echo "  coverage           Report requirements coverage"
+    echo "  coverage_percent   Report requirements coverage"
+    echo "  all                List all requirements"
+    echo "  pending            List pending requirements"
+    echo "  waved              List waved requirements with comments"
 }
 
 ${@:-help} # Show the help message by default
