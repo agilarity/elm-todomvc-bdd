@@ -46,24 +46,18 @@ function coverage {
     _create_all_data
     _create_rule_data
 
-    all_waved_count=$(wc -l $ALL_WAVED | tr -dc '0-9')
-    all_pending_count=$(wc -l $ALL_PENDING | tr -dc '0-9')
-    all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
-    tested_rules_count=$(wc -l $RULE_TESTED | tr -dc '0-9')
-    waved_rules_count=$(wc -l $RULE_WAVED | tr -dc '0-9')
-    pending_rules_count=$(wc -l $RULE_PENDING | tr -dc '0-9')
+    local all_waved_count=$(wc -l $ALL_WAVED | tr -dc '0-9')
+    local all_pending_count=$(wc -l $ALL_PENDING | tr -dc '0-9')
+    local all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
+    local tested_rules_count=$(wc -l $RULE_TESTED | tr -dc '0-9')
+    local waved_rules_count=$(wc -l $RULE_WAVED | tr -dc '0-9')
+    local pending_rules_count=$(wc -l $RULE_PENDING | tr -dc '0-9')
 
     if [[ $tested_rules_count -gt 0 && $all_rules_count -gt 0 ]]; then
         local rule_coverage=$(awk -v a=$tested_rules_count -v b=$all_rules_count 'BEGIN{printf "%.0f",(a/b)*100}')
     else
         local rule_coverage=0
     fi
-
-    local total_label="Rules: $all_rules_count"
-    local tested_label="Tested: $tested_rules_count"
-    local coverage_label="Rule Test Coverage: $rule_coverage%"
-    local waved_label="Waved: $waved_rules_count"
-    local pending_label="Pending: $pending_rules_count"
 
     if [ $all_pending_count -eq 0 ]; then
         local coverage_color=${GREEN}${BOLD}
@@ -71,49 +65,17 @@ function coverage {
         local coverage_color=${BOLD}
     fi
 
-    echo -e "$coverage_color $coverage_label [$total_label, $tested_label, $waved_label,  $pending_label]${RESET}"
+    echo -e "Scenario coverage:$coverage_color $rule_coverage%${RESET} ➺ $tested_rules_count tested, $waved_rules_count waved, $pending_rules_count pending"
 
     if [ $all_pending_count -gt 0 ]; then
-        echo -e "${BLUE} ${BOLD}PENDING - ${RESET}${BLUE}Cover or wave the following requirements${RESET}"
+        echo -e "${BLUE} ${BOLD}PENDING - ${RESET}${BLUE}Test or wave the following requirements${RESET}"
         echo -e "${RED}$(cat $ALL_PENDING)${RESET}"
     fi
 
     if [ $all_waved_count -gt 0 ]; then
-        echo -e "${BLUE} ${BOLD}WAVED - ${RESET}${BLUE}The following requirements are not covered by Elm Program Tests${RESET}"
+        echo -e "${BLUE} ${BOLD}WAVED - ${RESET}${BLUE}Not covered by Elm Program Tests${RESET}"
         list_waved_with_comments
     fi
-}
-
-function coverage_percent {
-    _create_data_dir
-    _list_reqs $RULE >$RULE_REQS
-    _list_tested $RULE_REQS >$RULE_TESTED
-
-    all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
-    tested_rules_count=$(wc -l $RULE_TESTED | tr -dc '0-9')
-
-    if [[ $tested_rules_count -gt 0 && $all_rules_count -gt 0 ]]; then
-        local rule_coverage=$(awk -v a=$tested_rules_count -v b=$all_rules_count 'BEGIN{printf "%.0f",(a/b)*100}')
-    else
-        local rule_coverage=0
-    fi
-
-    echo $rule_coverage%
-}
-
-function status {
-    _create_data_dir
-    _create_all_data
-    _create_rule_data
-
-    pending_rules_count=$(wc -l $RULE_PENDING | tr -dc '0-9')
-    if [ $pending_rules_count -gt 0 ]; then
-        local status="PENDING: $pending_rules_count"
-    else
-        local status="DONE"
-    fi
-
-    echo $status
 }
 
 function all {
@@ -142,6 +104,50 @@ function list_waved_with_comments {
         echo -e " $requirement ${UNDERLINE}$comment${RESET}"
     done <$ALL_WAVED
 }
+
+# Support badges
+
+function coverage_message {
+    _create_data_dir
+    _create_all_data
+    _create_rule_data
+
+    local all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
+    local tested_rules_count=$(wc -l $RULE_TESTED | tr -dc '0-9')
+    local waved_rules_count=$(wc -l $RULE_WAVED | tr -dc '0-9')
+    local pending_rules_count=$(wc -l $RULE_PENDING | tr -dc '0-9')
+
+    if [[ $tested_rules_count -gt 0 && $all_rules_count -gt 0 ]]; then
+        local rule_coverage=$(awk -v a=$tested_rules_count -v b=$all_rules_count 'BEGIN{printf "%.0f",(a/b)*100}')
+    else
+        local rule_coverage=0
+    fi
+
+    echo "$rule_coverage% ➺ $tested_rules_count tested, $waved_rules_count waved, $pending_rules_count pending"
+}
+
+function progress_message {
+    _create_data_dir
+    _create_all_data
+    _create_rule_data
+
+    local all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
+    local tested_rules_count=$(wc -l $RULE_TESTED | tr -dc '0-9')
+    local waved_rules_count=$(wc -l $RULE_WAVED | tr -dc '0-9')
+    local completed_count=$((tested_rules_count + waved_rules_count))
+    local rules_left=$((all_rules_count - completed_count))
+
+    if [ $rules_left -gt 0 ]; then
+        local percent=$(awk -v a=$completed_count -v b=$all_rules_count 'BEGIN{printf "%.0f",(a/b)*100}')
+        local progress="$percent% ($completed_count/$all_rules_count) ➺ $rules_left scenarios left"
+    else
+        local progress="100% ➺ $all_rules_count scenarios completed"
+    fi
+
+    echo $progress
+}
+
+# Internal
 
 function _create_all_data {
     _list_reqs $ALL >$ALL_REQS

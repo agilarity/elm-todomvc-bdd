@@ -74,6 +74,10 @@ function pending {
     ./scripts/reqs.sh pending
 }
 
+function progress {
+    ./scripts/reqs.sh progress_message
+}
+
 function help {
     echo "Usage: $0 <task> <args>"
     echo "Tasks:"
@@ -85,7 +89,7 @@ function help {
     echo "  install   Alias for elm install"
     echo "  live      Start elm-live server"
     echo "  reivew    Alias for elm-review"
-    echo "  fix   Alias for elm-review --fix"
+    echo "  fix       Alias for elm-review --fix"
     echo "  fix-all   Alias for elm-review --fix-all"
     echo "  test      Alias for elm-test --watch"
     echo ""
@@ -96,6 +100,7 @@ function help {
     echo "  coverage  Report requirements coverage"
     echo "  pending   List pending requirements"
     echo "  reqs      List requirements"
+    echo "  progress  Report progress"
     echo "  waved     List requirements that will not be covered by Elm Program Tests"
     echo "  help      Show this list"
 }
