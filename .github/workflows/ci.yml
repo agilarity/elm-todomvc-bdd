@@ -58,11 +58,11 @@ jobs:
         run: echo "PROGRESS_COLOR=$(./scripts/reqs.sh progress_color)" >> $GITHUB_ENV
 
       - name: Create progress badge
-      uses: schneegans/dynamic-badges-action@v1.1.0
-      with:
-        auth: ${{ secrets.GIST_SECRET }}
-        gistID: ae5110630f7d23adb1a0d2cfce564275
-        filename: progress.json
-        label: Progress
-        message: ${{ env.PROGRESS_MESSAGE }}
-        color:  ${{ env.PROGRESS_COLOR }}
+        uses: schneegans/dynamic-badges-action@v1.1.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: ae5110630f7d23adb1a0d2cfce564275
+          filename: progress.json
+          label: Progress
+          message: ${{ env.PROGRESS_MESSAGE }}
+          color: ${{ env.PROGRESS_COLOR }}
