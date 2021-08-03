@@ -36,11 +36,11 @@ jobs:
       - name: elm-test
         run: npx --no-install elm-test
 
-      # Scenario Coverage Badge
+      # Coverage Badge
       - name: Get scenario coverage
         run: echo "SCENARIO_COVERAGE=$(./scripts/reqs.sh coverage_message)" >> $GITHUB_ENV
 
-      - name: Create the scenario coverage badge
+      - name: Create coverage badge
         uses: schneegans/dynamic-badges-action@v1.1.0
         with:
           auth: ${{ secrets.GIST_SECRET }}
@@ -49,3 +49,18 @@ jobs:
           label: Scenario Coverage
           message: ${{ env.SCENARIO_COVERAGE }}
           color: blue
+
+      # Progress Badge
+      - name: Get progress
+        run: echo "PROGRESS_MESSAGE=$(./scripts/reqs.sh progress_message)" >> $GITHUB_ENV
+        run: echo "PROGRESS_COLOR=$(./scripts/reqs.sh progress_color)" >> $GITHUB_ENV
+
+        - name: Create progress badge
+        uses: schneegans/dynamic-badges-action@v1.1.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: ae5110630f7d23adb1a0d2cfce564275
+          filename: progress.json
+          label: Progress
+          message: ${{ env.PROGRESS_MESSAGE }}
+          color:  ${{ env.PROGRESS_COLOR }}

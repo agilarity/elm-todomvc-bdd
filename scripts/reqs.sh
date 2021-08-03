@@ -42,9 +42,7 @@ UNDERLINE="\e[4m"
 RESET="\e[0m"
 
 function coverage {
-    _create_data_dir
-    _create_all_data
-    _create_rule_data
+    _load_rule_data
 
     local all_waved_count=$(wc -l $ALL_WAVED | tr -dc '0-9')
     local all_pending_count=$(wc -l $ALL_PENDING | tr -dc '0-9')
@@ -107,10 +105,14 @@ function list_waved_with_comments {
 
 # Support badges
 
-function coverage_message {
+function _load_rule_data {
     _create_data_dir
     _create_all_data
     _create_rule_data
+}
+
+function coverage_message {
+    _load_rule_data
 
     local all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
     local tested_rules_count=$(wc -l $RULE_TESTED | tr -dc '0-9')
@@ -127,9 +129,7 @@ function coverage_message {
 }
 
 function progress_message {
-    _create_data_dir
-    _create_all_data
-    _create_rule_data
+    _load_rule_data
 
     local all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
     local tested_rules_count=$(wc -l $RULE_TESTED | tr -dc '0-9')
@@ -137,11 +137,38 @@ function progress_message {
     local completed_count=$((tested_rules_count + waved_rules_count))
     local rules_left=$((all_rules_count - completed_count))
 
-    if [ $rules_left -gt 0 ]; then
-        local percent=$(awk -v a=$completed_count -v b=$all_rules_count 'BEGIN{printf "%.0f",(a/b)*100}')
-        local progress="$percent% ($completed_count/$all_rules_count) ➺ $rules_left scenarios left"
+    if [ $all_rules_count -eq 0 ]; then
+        local progress="0% - no requirements"
     else
-        local progress="100% - $all_rules_count scenarios completed"
+        if [ $rules_left -gt 0 ]; then
+            local percent=$(awk -v a=$completed_count -v b=$all_rules_count 'BEGIN{printf "%.0f",(a/b)*100}')
+            local progress="$percent% ($completed_count/$all_rules_count) ➺ $rules_left scenarios left"
+        else
+            local progress="100% - $all_rules_count scenarios completed"
+        fi
+    fi
+
+    echo $progress
+}
+
+function progress_color {
+    _load_rule_data
+
+    local all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
+    local tested_rules_count=$(wc -l $RULE_TESTED | tr -dc '0-9')
+    local waved_rules_count=$(wc -l $RULE_WAVED | tr -dc '0-9')
+    local completed_count=$((tested_rules_count + waved_rules_count))
+    local rules_left=$((all_rules_count - completed_count))
+
+    rules_left=1
+    if [ $all_rules_count -eq 0 ]; then
+        local progress="blue"
+    else
+        if [ $rules_left -gt 0 ]; then
+            local progress="yellow"
+        else
+            local progress="green"
+        fi
     fi
 
     echo $progress
