@@ -43,7 +43,7 @@ jobs:
       - name: Create the scenario coverage badge
         uses: schneegans/dynamic-badges-action@v1.1.0
         with:
-          auth: ${{ secrets.GIST_SECRET }}
+          super_secret: ${{ secrets.GIST_SECRET }}
           gistID: ae5110630f7d23adb1a0d2cfce564275
           filename: scenario-coverage.json
           label: scenario coverage
