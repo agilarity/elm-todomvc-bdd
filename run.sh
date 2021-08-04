@@ -2,17 +2,11 @@
 
 set -u
 
-# See: https://github.com/adriancooney/Taskfile
-# Add the following alias to your shell
-
-# Run your tasks like: run <task>
-# alias run=./Taskfile
-
 BOLD="\e[1m"
 UNDERLINE="\e[4m"
 RESET="\e[0m"
 
-function tools {
+function tools { #help: install Elm tools
 
     if ! command -v npm &>/dev/null; then
         echo "npm could not be found"
@@ -22,87 +16,77 @@ function tools {
     fi
 }
 
-function clean {
+function clean { #help: remove generated files
     rm -rf elm-stuff out build tmp site/dist
 }
 
-function install {
+function install { #help: alias for `elm install`
     npx elm install "$@"
 }
 
-function test {
+function test { #help: alias for `elm-test --watch`
     npx elm-test --watch "$@"
 }
 
-function format {
+function format { #help: alias for `elm-format`
     npx elm-format "$@"
 }
 
-function coverage {
+function coverage { #help: report scenario coverage
     ./scripts/reqs.sh coverage
 }
 
-function review {
-    npx elm-review
+function review { #help: alias for `elm-review`
+    npx elm-review "$@"
 }
 
-function fix {
+function fix { #help: alias for `elm-review --fix`
     npx elm-review --fix
 }
 
-function fix-all {
+function fix-all { #help: alias for `elm-review --fix-all`
     npx elm-review --fix-all
 }
 
-function live {
+function live { #help: start `elm-live` server
     ./scripts/start-live.sh
 }
 
-function prod {
+function prod { #help: copy minified `elm.js` to site
     ./scripts/build.sh build:prod
 }
 
-function reqs {
+function reqs { #help: list all requirements
     ./scripts/reqs.sh all
 }
 
-function waved {
+function waved { #help: list waved requirements
     ./scripts/reqs.sh waved
 }
 
-function pending {
+function pending { #help: list pend requirements
     ./scripts/reqs.sh pending
 }
 
-function progress {
+function progress { #help: report progress
     ./scripts/reqs.sh progress_message
 }
 
-function help {
-    echo "Usage: $0 <task> <args>"
-    echo "Tasks:"
-    echo ""
-    echo -e "${BOLD}${UNDERLINE}Development:${RESET}"
-    echo "  tools     Install Elm tools"
-    echo "  clean     Remove generated files"
-    echo "  format    Alias for elm-format"
-    echo "  install   Alias for elm install"
-    echo "  live      Start elm-live server"
-    echo "  reivew    Alias for elm-review"
-    echo "  fix       Alias for elm-review --fix"
-    echo "  fix-all   Alias for elm-review --fix-all"
-    echo "  test      Alias for elm-test --watch"
-    echo ""
-    echo -e "${BOLD}${UNDERLINE}Production:${RESET}"
-    echo "  prod      Build and copy minimized app to dist directory"
-    echo ""
-    echo -e "${BOLD}${UNDERLINE}Requirements:${RESET}"
-    echo "  coverage  Report requirements coverage"
-    echo "  pending   List pending requirements"
-    echo "  reqs      List requirements"
-    echo "  progress  Report progress"
-    echo "  waved     List requirements that will not be covered by Elm Program Tests"
-    echo "  help      Show this list"
+function help_lines {
+    grep -E '^function.+ #help' "$0" |
+        sed 's/function/      /' |
+        sed -e 's| { #help: |~|g' |
+        column -s"~" -t |
+        sort
+}
+
+function help { #help: Show available commands
+    echo -e "${BOLD}help:${RESET} $(basename "$0") <command>"
+    echo "    Display information about $(basename "$0") commands"
+    echo
+    echo -e "    ${BOLD}Commands:${RESET}"
+    help_lines
+    echo
 }
 
 TIMEFORMAT="Task completed in %3lR"
