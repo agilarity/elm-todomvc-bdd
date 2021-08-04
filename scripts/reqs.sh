@@ -41,7 +41,7 @@ BOLD="\e[1m"
 UNDERLINE="\e[4m"
 RESET="\e[0m"
 
-function coverage {
+function coverage { #help: report scenario coverage
     _load_rule_data
 
     local all_waved_count=$(wc -l $ALL_WAVED | tr -dc '0-9')
@@ -76,42 +76,28 @@ function coverage {
     fi
 }
 
-function all {
+function all { #help: list all requirements
     _create_data_dir
     _list_reqs $ALL >$ALL_REQS
     cat $ALL_REQS
 }
 
-function pending {
+function pending { #help: list pending requirements
     _create_data_dir
     _create_all_data
     cat $ALL_PENDING
 }
 
-function waved {
+function waved { #help: list waved requirements
     _create_data_dir
     _list_reqs $ALL >$ALL_REQS
     _list_waved $ALL_REQS >$ALL_WAVED
-    list_waved_with_comments
-}
-
-function list_waved_with_comments {
-    while read requirement; do
-        local line=$(grep --no-filename "$requirement" $WAVED_REQS)
-        local comment=${line:${#requirement}+1}
-        echo -e " $requirement ${UNDERLINE}$comment${RESET}"
-    done <$ALL_WAVED
+    _list_waved_with_comments
 }
 
 # Support badges
 
-function _load_rule_data {
-    _create_data_dir
-    _create_all_data
-    _create_rule_data
-}
-
-function coverage_message {
+function coverage_message { #help: show scenario coverage badge message
     _load_rule_data
 
     local all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
@@ -128,7 +114,7 @@ function coverage_message {
     echo "$rule_coverage% - $tested_rules_count tested, $waved_rules_count waved, $pending_rules_count pending"
 }
 
-function progress_message {
+function progress_message { #help: show progress badge message
     _load_rule_data
 
     local all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
@@ -151,7 +137,7 @@ function progress_message {
     echo $progress
 }
 
-function progress_color {
+function progress_color { #help: show progress badge color
     _load_rule_data
 
     local all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
@@ -171,6 +157,12 @@ function progress_color {
 }
 
 # Internal
+
+function _load_rule_data {
+    _create_data_dir
+    _create_all_data
+    _create_rule_data
+}
 
 function _create_all_data {
     _list_reqs $ALL >$ALL_REQS
@@ -200,46 +192,61 @@ function _create_data_dir {
 }
 
 function _list_reqs {
-    pattern=$1
+    local pattern=$1
     if [ -n "${pattern:-}" ]; then
         grep --no-filename --extended-regexp $pattern doc/requirements/details/*.md | sed 's/[#]*//'
     fi
 }
 
 function _list_tested {
-    requirements=$1
+    local requirements=$1
     while read requirement; do
         grep --no-filename --only-matching "$requirement" tests/IT/*.elm
     done <$requirements
 }
 
 function _list_not_tested {
-    requirements=$1
-    covered=$2
+    local requirements=$1
+    local covered=$2
     grep --invert-match --file $covered $requirements
 }
 
 function _list_waved {
-    requirements=$1
+    local requirements=$1
     while read requirement; do
         grep --no-filename --only-matching "$requirement" $WAVED_REQS
     done <$requirements
 }
 
 function _list_pending {
-    not_tested=$1
-    expections=$2
+    local not_tested=$1
+    local expections=$2
     grep --invert-match --file $expections $not_tested
 }
 
-function help {
-    echo "Usage: $0 <task> <args>"
-    echo "Tasks:"
-    echo "  coverage           Report requirements coverage"
-    echo "  coverage_percent   Report requirements coverage"
-    echo "  all                List all requirements"
-    echo "  pending            List pending requirements"
-    echo "  waved              List waved requirements with comments"
+function help_lines {
+    grep -E '^function.+ #help' "$0" |
+        sed 's/function/      /' |
+        sed -e 's| { #help: |~|g' |
+        column -s"~" -t |
+        sort
+}
+
+function _list_waved_with_comments {
+    while read requirement; do
+        local line=$(grep --no-filename "$requirement" $WAVED_REQS)
+        local comment=${line:${#requirement}+1}
+        echo -e " $requirement ${UNDERLINE}$comment${RESET}"
+    done <$ALL_WAVED
+}
+
+function help { #help: show available commands
+    echo -e "${BOLD}help:${RESET} $(basename "$0") <command>"
+    echo "    Display information about $(basename "$0") commands"
+    echo
+    echo -e "    ${BOLD}Commands:${RESET}"
+    help_lines
+    echo
 }
 
 ${@:-help} # Show the help message by default

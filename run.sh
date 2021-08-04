@@ -80,7 +80,7 @@ function help_lines {
         sort
 }
 
-function help { #help: Show available commands
+function help { #help: show available commands
     echo -e "${BOLD}help:${RESET} $(basename "$0") <command>"
     echo "    Display information about $(basename "$0") commands"
     echo
