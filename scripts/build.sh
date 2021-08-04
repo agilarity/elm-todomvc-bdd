@@ -12,7 +12,7 @@ function optimize {
     mkdir $BUILD_DIR
 
     elm make src/Main.elm --optimize --output=$OPTIMIZED_FILE "$@"
-    uglifyjs $OPTIMIZED_FILE --compress 'pure_funcs=[F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9],pure_getters,keep_fargs=false,unsafe_comps,unsafe' | uglifyjs --mangle --output $MINIFIED_FILE
+    npx uglifyjs $OPTIMIZED_FILE --compress 'pure_funcs=[F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9],pure_getters,keep_fargs=false,unsafe_comps,unsafe' | npx uglifyjs --mangle --output $MINIFIED_FILE
 
     echo "Compiled size:$(wc $OPTIMIZED_FILE -c) bytes  ($OPTIMIZED_FILE)"
     echo "Minified size:$(wc $MINIFIED_FILE -c) bytes  ($MINIFIED_FILE)"

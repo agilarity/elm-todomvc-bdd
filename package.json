@@ -9,5 +9,8 @@
     "elm-review": "^2.5.3",
     "elm-test": "^0.19.1-revision7",
     "elm-tooling": "^1.3.0"
+  },
+  "dependencies": {
+    "uglify-js": "^3.14.1"
   }
 }
