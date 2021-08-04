@@ -1,5 +1,6 @@
-# Distribution (Generated Elm App)
-public/dist/
+# Build files
+build/
+site/dist/
 
 # Created by https://www.toptal.com/developers/gitignore/api/elm,node,linux,macos,windows,intellij,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=elm,node,linux,macos,windows,intellij,visualstudiocode
