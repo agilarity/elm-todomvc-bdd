@@ -7,6 +7,11 @@ MINIFIED_FILE="$BUILD_DIR/elm-min.js"
 DIST_DIR=site/dist
 APP_FILE=elm.js
 
+# Color Codes
+BOLD="\e[1m"
+UNDERLINE="\e[4m"
+RESET="\e[0m"
+
 function build_prod { #help: build and copy minified `elm.js` to site
     _build
     _assure_dist_dir
