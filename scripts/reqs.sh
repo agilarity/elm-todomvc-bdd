@@ -72,7 +72,7 @@ function coverage { #help: report scenario coverage
 
     if [ $all_waved_count -gt 0 ]; then
         echo -e "${BLUE} ${BOLD}WAVED - ${RESET}${BLUE}Not covered by Elm Program Tests${RESET}"
-        list_waved_with_comments
+        _list_waved_with_comments
     fi
 }
 
@@ -224,14 +224,6 @@ function _list_pending {
     grep --invert-match --file $expections $not_tested
 }
 
-function help_lines {
-    grep -E '^function.+ #help' "$0" |
-        sed 's/function/      /' |
-        sed -e 's| { #help: |~|g' |
-        column -s"~" -t |
-        sort
-}
-
 function _list_waved_with_comments {
     while read requirement; do
         local line=$(grep --no-filename "$requirement" $WAVED_REQS)
@@ -240,12 +232,20 @@ function _list_waved_with_comments {
     done <$ALL_WAVED
 }
 
+function _help_lines {
+    grep -E '^function.+ #help' "$0" |
+        sed 's/function/      /' |
+        sed -e 's| { #help: |~|g' |
+        column -s"~" -t |
+        sort
+}
+
 function help { #help: show available commands
     echo -e "${BOLD}help:${RESET} $(basename "$0") <command>"
     echo "    Display information about $(basename "$0") commands"
     echo
     echo -e "    ${BOLD}Commands:${RESET}"
-    help_lines
+    _help_lines
     echo
 }
 

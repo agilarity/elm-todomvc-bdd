@@ -7,7 +7,16 @@ MINIFIED_FILE="$BUILD_DIR/elm-min.js"
 DIST_DIR=site/dist
 APP_FILE=elm.js
 
-function optimize {
+function build_prod { #help: build and copy minified `elm.js` to site
+    _build
+    _assure_dist_dir
+    cp --force $MINIFIED_FILE $DIST_DIR/$APP_FILE
+    echo Minified file deployed to $DIST_DIR
+}
+
+# Internal
+
+function _build {
     rm -rf $BUILD_DIR
     mkdir $BUILD_DIR
 
@@ -19,7 +28,7 @@ function optimize {
     echo "Gzipped size: $(gzip $MINIFIED_FILE -c | wc -c) bytes"
 }
 
-function assureDistDir {
+function _assure_dist_dir {
 
     if [ ! -d "$DIST_DIR" ]; then
         echo Creating $DIST_DIR
@@ -27,11 +36,21 @@ function assureDistDir {
     fi
 }
 
-function build:prod {
-    optimize
-    assureDistDir
-    cp --force $MINIFIED_FILE $DIST_DIR/$APP_FILE
-    echo Minified file deployed to $DIST_DIR
+function _help_lines {
+    grep -E '^function.+ #help' "$0" |
+        sed 's/function/      /' |
+        sed -e 's| { #help: |~|g' |
+        column -s"~" -t |
+        sort
 }
 
-${@:-build:prod} # Build the minimized files by default
+function help { #help: show available commands
+    echo -e "${BOLD}help:${RESET} $(basename "$0") <command>"
+    echo "    Display information about $(basename "$0") commands"
+    echo
+    echo -e "    ${BOLD}Commands:${RESET}"
+    _help_lines
+    echo
+}
+
+${@:-help} # Show the help message by default

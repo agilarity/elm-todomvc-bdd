@@ -52,8 +52,8 @@ function live { #help: start `elm-live` server
     ./scripts/start-live.sh
 }
 
-function prod { #help: copy minified `elm.js` to site
-    ./scripts/build.sh build:prod
+function prod { #help: build and copy minified `elm.js` to site
+    ./scripts/build.sh build_prod
 }
 
 function reqs { #help: list all requirements
@@ -72,7 +72,7 @@ function progress { #help: report progress
     ./scripts/reqs.sh progress_message
 }
 
-function help_lines {
+function _help_lines {
     grep -E '^function.+ #help' "$0" |
         sed 's/function/      /' |
         sed -e 's| { #help: |~|g' |
@@ -85,7 +85,7 @@ function help { #help: show available commands
     echo "    Display information about $(basename "$0") commands"
     echo
     echo -e "    ${BOLD}Commands:${RESET}"
-    help_lines
+    _help_lines
     echo
 }
 
