@@ -60,8 +60,8 @@ function reqs { #help: list all requirements
     ./scripts/reqs.sh all
 }
 
-function waved { #help: list waved requirements
-    ./scripts/reqs.sh waved
+function waived { #help: list waived requirements
+    ./scripts/reqs.sh waived
 }
 
 function pending { #help: list pend requirements
