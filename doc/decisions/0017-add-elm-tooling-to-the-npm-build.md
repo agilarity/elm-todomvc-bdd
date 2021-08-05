@@ -16,6 +16,6 @@ We will use [elm-tooling-cli](https://github.com/elm-tooling/elm-tooling-cli) an
 
 ## Consequences
 
-* Supported tools like `elm` and `elm-review` are installed by [elm-tooling-cli](https://github.com/elm-tooling/elm-tooling-cli).
-* Other tools like `elm-review` and `elm-live` are installed by `npm`.
-* Execute `./run tools` to install all the Elm tools. You can also run `npm install`.
+- Supported tools like `elm` and `elm-review` are installed by [elm-tooling-cli](https://github.com/elm-tooling/elm-tooling-cli).
+- Other tools like `elm-review` and `elm-live` are installed by `npm`.
+- Execute `./run.sh tools` to install all the Elm tools. You can also run `npm install`.
