@@ -41,7 +41,7 @@ BOLD="\e[1m"
 UNDERLINE="\e[4m"
 RESET="\e[0m"
 
-function coverage { #help: report scenario coverage
+function coverage { #command: report scenario coverage
     _load_rule_data
 
     local all_waived_count=$(wc -l $ALL_WAIVED | tr -dc '0-9')
@@ -76,19 +76,19 @@ function coverage { #help: report scenario coverage
     fi
 }
 
-function all { #help: list all requirements
+function all { #list-command: list all requirements
     _create_data_dir
     _list_reqs $ALL >$ALL_REQS
     cat $ALL_REQS
 }
 
-function pending { #help: list pending requirements
+function pending { #list-command: list pending requirements
     _create_data_dir
     _create_all_data
     cat $ALL_PENDING
 }
 
-function waived { #help: list waived requirements
+function waived { #list-command: list waived requirements
     _create_data_dir
     _list_reqs $ALL >$ALL_REQS
     _list_waived $ALL_REQS >$ALL_WAIVED
@@ -97,7 +97,7 @@ function waived { #help: list waived requirements
 
 # Support badges
 
-function coverage_message { #help: show scenario coverage badge message
+function coverage_message { #command: show scenario coverage badge message
     _load_rule_data
 
     local all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
@@ -114,7 +114,7 @@ function coverage_message { #help: show scenario coverage badge message
     echo "$rule_coverage% - $tested_rules_count tested, $waived_rules_count waived, $pending_rules_count pending"
 }
 
-function progress_message { #help: show progress badge message
+function progress_message { #command: show progress badge message
     _load_rule_data
 
     local all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
@@ -137,7 +137,7 @@ function progress_message { #help: show progress badge message
     echo $progress
 }
 
-function progress_color { #help: show progress badge color
+function progress_color { #command: show progress badge color
     _load_rule_data
 
     local all_rules_count=$(wc -l $RULE_REQS | tr -dc '0-9')
@@ -232,20 +232,32 @@ function _list_waived_with_comments {
     done <$ALL_WAIVED
 }
 
-function _help_lines {
-    grep -E '^function.+ #help' "$0" |
-        sed 's/function/      /' |
-        sed -e 's| { #help: |~|g' |
+function _list_command_lines {
+    grep -E '^function.+ #list-command' "$0" |
+        sed 's/function/ /' |
+        sed -e 's| { #list-command: |~|g' |
         column -s"~" -t |
         sort
 }
 
-function help { #help: show available commands
-    echo -e "${BOLD}help:${RESET} $(basename "$0") <command>"
-    echo "    Display information about $(basename "$0") commands"
+function _command_lines {
+    grep -E '^function.+ #command' "$0" |
+        sed 's/function/ /' |
+        sed -e 's| { #command: |~|g' |
+        column -s"~" -t |
+        sort
+}
+
+function help {
+    echo -e "${BOLD}Usage:${RESET} $(basename "$0") COMMAND"
     echo
-    echo -e "    ${BOLD}Commands:${RESET}"
-    _help_lines
+    echo Provide requirements information
+    echo
+    echo -e "${BOLD}Commands:${RESET}"
+    _command_lines
+    echo
+    echo -e "${BOLD}List Commands:${RESET}"
+    _list_command_lines
     echo
 }
 

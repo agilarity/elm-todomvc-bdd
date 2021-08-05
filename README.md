@@ -26,13 +26,15 @@ This project demonstrates a behavior driven implementation of the [TodoMVC](http
 
 ## Build Instructions
 
+_This project is supported by a run script to improve usability. Execute_ `./run.sh help` _to see the commands that are available._
+
 To install Elm tools:
 
 - Execute `./run.sh tools`
 
 To see production version:
 
-- Execute `./run.sh prod`
+- Execute `./run.sh build:prod`
 - Open the `site/index.html`
 
 To start a live development server.

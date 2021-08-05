@@ -6,7 +6,7 @@ BOLD="\e[1m"
 UNDERLINE="\e[4m"
 RESET="\e[0m"
 
-function tools { #help: install Elm tools
+function tools { #command: install Elm tools
 
     if ! command -v npm &>/dev/null; then
         echo "npm could not be found"
@@ -16,76 +16,106 @@ function tools { #help: install Elm tools
     fi
 }
 
-function clean { #help: remove generated files
+function clean { #command: remove generated files
     rm -rf elm-stuff out build tmp site/dist
 }
 
-function install { #help: alias for `elm install`
+function install { #alias-command: alias for `npx elm install` [OPTIONS]
     npx elm install "$@"
 }
 
-function test { #help: alias for `elm-test --watch`
+function test { #alias-command: alias for `npx elm-test --watch` [OPTIONS]
     npx elm-test --watch "$@"
 }
 
-function format { #help: alias for `elm-format`
+function format { #alias-command: alias for `npx elm-format` [OPTIONS]
     npx elm-format "$@"
 }
 
-function coverage { #help: report scenario coverage
+function coverage { #req-command: report scenario coverage
     ./scripts/reqs.sh coverage
 }
 
-function review { #help: alias for `elm-review`
+function review { #alias-command: alias for `elm-review` [OPTIONS]
     npx elm-review "$@"
 }
 
-function fix { #help: alias for `elm-review --fix`
-    npx elm-review --fix
+function fix { #alias-command: alias for `npx elm-review --fix` [OPTIONS]
+    npx elm-review --fix "$@"
 }
 
-function fix-all { #help: alias for `elm-review --fix-all`
-    npx elm-review --fix-all
+function fix-all { #alias-command: alias for `npx elm-review --fix-all` [OPTIONS]
+    npx elm-review --fix-all "$@"
 }
 
-function live { #help: start `elm-live` server
+function live { #command: start `elm-live` server
     ./scripts/start-live.sh
 }
 
-function prod { #help: build and copy minified `elm.js` to site
+function build:prod { #command: build and copy minified `elm.js` to site
     ./scripts/build.sh build_prod
 }
 
-function reqs { #help: list all requirements
+function build:dev { #command: build and copy DEV `elm.js` to site
+    ./scripts/build.sh build_dev
+}
+
+function reqs { #req-command: list all requirements
     ./scripts/reqs.sh all
 }
 
-function waived { #help: list waived requirements
+function waived { #req-command: list waived requirements
     ./scripts/reqs.sh waived
 }
 
-function pending { #help: list pend requirements
+function pending { #req-command: list pend requirements
     ./scripts/reqs.sh pending
 }
 
-function progress { #help: report progress
+function progress { #req-command: report progress
     ./scripts/reqs.sh progress_message
 }
 
-function _help_lines {
-    grep -E '^function.+ #help' "$0" |
-        sed 's/function/      /' |
-        sed -e 's| { #help: |~|g' |
+function _command_lines {
+    grep -E '^function.+ #command' "$0" |
+        sed 's/function/ /' |
+        sed -e 's| { #command: |~|g' |
         column -s"~" -t |
         sort
 }
 
-function help { #help: show available commands
-    echo -e "${BOLD}help:${RESET} $(basename "$0") <command>"
-    echo "    Display information about $(basename "$0") commands"
+function _req_command_lines {
+    grep -E '^function.+ #req-command' "$0" |
+        sed 's/function/ /' |
+        sed -e 's| { #req-command: |~|g' |
+        column -s"~" -t |
+        sort
+}
+
+function _alias_command_lines {
+    grep -E '^function.+ #alias-command' "$0" |
+        sed 's/function/ /' |
+        sed -e 's| { #alias-command: |~|g' |
+        column -s"~" -t |
+        sort
+}
+
+function help {
+    echo -e "${BOLD}Usage:${RESET} $(basename "$0") COMMAND [OPTIONS]"
     echo
-    echo -e "    ${BOLD}Commands:${RESET}"
-    _help_lines
+    echo Uniform interface for running project commands
+    echo
+    echo -e "${BOLD}Commands:${RESET}"
+    _command_lines
+    echo
+    echo -e "${BOLD}Alias Commands:${RESET}"
+    _alias_command_lines
+    echo
+    echo -e "${BOLD}Requirement Commands:${RESET}"
+    _req_command_lines
+    echo
+    echo -e "${BOLD}Options:${RESET}"
+    echo "  Alias commands that accept tool specific options are tagged with [OPTIONS]"
     echo
 }
 
